@@ -1,6 +1,8 @@
 class AgendasController < ApplicationController
   # before_action :set_agenda, only: %i[show edit update destroy]
 
+  before_action :set_agenda, only: %i[destroy]
+
   def index
     @agendas = Agenda.all
   end
@@ -21,6 +23,12 @@ class AgendasController < ApplicationController
     end
   end
 
+  def destroy 
+    path = Rails.application.routes.recognize_path(request.refer)
+    @agenda.destroy
+    redirect_to path
+  end
+  
   private
 
   def set_agenda
